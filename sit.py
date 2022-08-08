@@ -3,9 +3,12 @@ from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 from datetime.datetime import strptime,strftime
 from datetime import timedelta
+import numpy as np
 
 EXAM_ENDPOINT = "https://api.intra.42.fr/v2/exams"
 USER_ENDPOINT = "https://api.intra.42.fr/v2/users"
+rows = {'Lab1':6,'Lab2':4,'Lab3':8}
+columns = 14
 
 parse = lambda x: strptime(x,'%Y-%m-%dT%H:%M:%S.%fZ')
 
@@ -60,10 +63,6 @@ for lab in most_frequent_users:
     for user_id in exam.subscribers:
         if exam.subscribers[user_id]['lab_freqs'][0] == lab:
             most_frequent_users[lab].append(user_id)
-import numpy as np
-rows = {'Lab1':6,'Lab2':4,'Lab3':8}
-columns = 14
-labs = ['Lab1','Lab2']
 
 # create empty spaces
 arrangement = {lab:np.zeros((rows[lab],columns),int) for lab in labs }
